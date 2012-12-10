@@ -1,22 +1,21 @@
-Name:           kraft
-Url:            http://volle-kraft-voraus.de
-Version:        0.45
-Release:        1
-License:        GPL, LGPL
-Summary:        KDE software to manage office documents in the office
-Group:          Office
-Source0:        kraft-%{version}.tar.bz2
+Name:		kraft
+Url:		http://volle-kraft-voraus.de
+Version:	0.45
+Release:	3
+License:	GPL, LGPL
+Summary:	KDE software to manage office documents in the office
+Group:		Office
+Source0:	kraft-%{version}.tar.bz2
 # PATCH-FIX-OPENSUSE kraft-%{version}.dif freitag@opensuse.org -- fix cmake input file
-Patch0:         kraft-%{version}.dif
-Patch1:         kraft_follower.dif
+Patch0:		kraft-%{version}.dif
+Patch1:		kraft_follower.dif
+BuildRequires:	qt4-devel
+BuildRequires:	kdepimlibs4-devel
+BuildRequires:	pkgconfig(libctemplate)
+Requires:	python-pypdf
+Requires:	python-reportlab
+Requires:	sqlite3-tools
 
-Requires:       python-pypdf
-Requires:       python-reportlab
-Requires:       sqlite3
-
-BuildRequires:  libctemplate-devel
-BuildRequires:  qt4-devel
-BuildRequires:  kdepimlibs4-devel
 
 %description
 Kraft is KDE software to help to
@@ -41,13 +40,13 @@ for more information.
 %make
 
 %install
-cd build
-%makeinstall_std
-cd ..
+%makeinstall_std -C build
+
 %find_lang %{name}
 chmod 755 %{buildroot}%{_datadir}/apps/kraft/tools/erml2pdf.py
 
 %files -f %{name}.lang
+%doc AUTHORS COPYING INSTALL README Releasenotes.txt TODO
 %{_bindir}/kraft
 %{_bindir}/kplant
 %{_libdir}/libkraftcat*
@@ -57,4 +56,3 @@ chmod 755 %{buildroot}%{_datadir}/apps/kraft/tools/erml2pdf.py
 %{_datadir}/config.kcfg/*.kcfg
 %{_datadir}/apps/kplant/pics/*.png
 
-%doc AUTHORS COPYING INSTALL README Releasenotes.txt TODO
