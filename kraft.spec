@@ -1,15 +1,26 @@
+%define beta rc1
+
 Summary:	KDE software to manage office documents in the office
 Name:		kraft
-Version:	0.50
-Release:	2
+Version:	0.96
+Release:	%{?beta:0.%{beta}.}1
 License:	GPLv2+
 Group:		Office
 Url:		http://volle-kraft-voraus.de
-Source0:	http://sourceforge.net/projects/%{name}/files/%{name}/%{version}/%{name}-%{version}.tar.bz2
-Patch0:		kraft-0.50-cmake.patch
-BuildRequires:	kdepimlibs4-devel
-BuildRequires:	qt4-devel
+Source0:	https://github.com/dragotin/kraft/archive/v%{version}%{?beta:%{beta}}/%{name}-%{version}%{?beta:%{beta}}.tar.gz
 BuildRequires:	pkgconfig(libctemplate)
+BuildRequires:	cmake(ECM)
+BuildRequires:	cmake(Qt5Core)
+BuildRequires:	cmake(Qt5Sql)
+BuildRequires:	cmake(Qt5Gui)
+BuildRequires:	cmake(Qt5Widgets)
+BuildRequires:	cmake(Qt5Test)
+BuildRequires:	cmake(Qt5Xml)
+BuildRequires:	cmake(Grantlee5)
+BuildRequires:	cmake(KF5I18n)
+BuildRequires:	cmake(KF5Contacts)
+BuildRequires:	gettext-devel
+BuildRequires:	po4a
 Requires:	python-pypdf
 Requires:	python-reportlab
 Requires:	sqlite3-tools
@@ -23,47 +34,27 @@ addressbook, highly configurable PDF output and more.
 See the website http://volle-kraft-voraus.de for more information.
 
 %files -f %{name}.lang
-%doc AUTHORS COPYING README Releasenotes.txt TODO
-%{_kde_bindir}/%{name}
-%{_kde_applicationsdir}/%{name}.desktop
-%{_kde_appsdir}/%{name}
-%{_kde_appsdir}/kplant
-%{_kde_datadir}/config.kcfg/databasesettings.kcfg
-%{_kde_datadir}/config.kcfg/kraftsettings.kcfg
-%{_kde_iconsdir}/*/*/*/%{name}*.png
-
-#----------------------------------------------------------------------------
-
-%define major 0
-%define libkraftcat %mklibname kraftcat %{major}
-
-%package -n %{libkraftcat}
-Summary:	Shared library for Kraft
-Group:		System/Libraries
-Conflicts:	%{name} < 0.50
-
-%description -n %{libkraftcat}
-Shared library for Kraft.
-
-%files -n %{libkraftcat}
-%{_kde_libdir}/libkraftcat.so.%{major}*
+%doc AUTHORS COPYING Releasenotes.txt TODO
+%{_bindir}/%{name}
+%{_bindir}/findcontact
+%{_datadir}/applications/de.volle_kraft_voraus.%{name}.desktop
+%{_datadir}/%{name}
+%{_datadir}/config.kcfg/databasesettings.kcfg
+%{_datadir}/config.kcfg/kraftsettings.kcfg
+%{_datadir}/icons/*/*/*/%{name}*.*
+%{_datadir}/kxmlgui5/kraft
+%{_datadir}/metainfo/de.volle_kraft_voraus.kraft.appdata.xml
 
 #----------------------------------------------------------------------------
 
 %prep
-%setup -q
-%patch0 -p1
+%autosetup -p1 -n %{name}-%{version}%{?beta:%{beta}}
+%cmake_kde5 -G Ninja
 
 %build
-%cmake_kde4
-%make
+%ninja_build -C build
 
 %install
-%makeinstall_std -C build
+%ninja_install -C build
 
 %find_lang %{name}
-chmod 755 %{buildroot}%{_kde_appsdir}/%{name}/tools/erml2pdf.py
-
-# We don't need this because there are no headers anyway
-rm -f %{buildroot}%{_kde_libdir}/libkraftcat.so
-
