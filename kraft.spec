@@ -22,6 +22,7 @@ BuildRequires:	cmake(KF5Contacts)
 BuildRequires:	cmake(KF5Akonadi)
 BuildRequires:	cmake(KF5AkonadiContact)
 BuildRequires:	gettext-devel
+BuildRequires:	asciidoctor
 BuildRequires:	po4a
 Requires:	python-pypdf
 Requires:	python-reportlab
