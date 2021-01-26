@@ -19,6 +19,8 @@ BuildRequires:	cmake(Qt5Xml)
 BuildRequires:	cmake(Grantlee5)
 BuildRequires:	cmake(KF5I18n)
 BuildRequires:	cmake(KF5Contacts)
+BuildRequires:	cmake(KF5Akonadi)
+BuildRequires:	cmake(KF5AkonadiContact)
 BuildRequires:	gettext-devel
 BuildRequires:	po4a
 Requires:	python-pypdf
