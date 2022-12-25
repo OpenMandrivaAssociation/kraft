@@ -2,7 +2,7 @@
 
 Summary:	KDE software to manage office documents in the office
 Name:		kraft
-Version:	0.98
+Version:	1.0
 Release:	%{?beta:0.%{beta}.1}1
 License:	GPLv2+
 Group:		Office
