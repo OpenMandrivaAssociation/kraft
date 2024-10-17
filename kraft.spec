@@ -6,7 +6,7 @@ Version:	1.0
 Release:	%{?beta:0.%{beta}.1}1
 License:	GPLv2+
 Group:		Office
-Url:		http://volle-kraft-voraus.de
+Url:		https://volle-kraft-voraus.de
 Source0:	https://github.com/dragotin/kraft/archive/v%{version}%{?beta:%{beta}}/%{name}-%{version}%{?beta:%{beta}}.tar.gz
 BuildRequires:	pkgconfig(libctemplate)
 BuildRequires:	cmake(ECM)
