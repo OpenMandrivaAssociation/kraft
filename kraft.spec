@@ -2,7 +2,7 @@
 
 Summary:	KDE software to manage office documents in the office
 Name:		kraft
-Version:	1.0
+Version:	2.0.0
 Release:	%{?beta:0.%{beta}.1}1
 License:	GPLv2+
 Group:		Office
@@ -51,7 +51,7 @@ See the website http://volle-kraft-voraus.de for more information.
 #----------------------------------------------------------------------------
 
 %prep
-%autosetup -p1 -n %{name}-%{version}%{?beta:%{beta}}
+%autosetup -p1 -n kraft-2.0.0rc1
 %cmake_kde5 -G Ninja
 
 %build
